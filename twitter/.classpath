@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/twitter4j-core-3.0.5.jar"/>
+	<classpathentry kind="lib" path="lib/twitter4j-stream-3.0.5.jar"/>
+	<classpathentry kind="lib" path="/home/nordine/workspace/java/git/weka-3-6-10/remoteExperimentServer.jar"/>
+	<classpathentry kind="lib" path="/home/nordine/workspace/java/git/weka-3-6-10/weka.jar"/>
+	<classpathentry kind="lib" path="/home/nordine/workspace/java/git/weka-3-6-10/weka-src.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
