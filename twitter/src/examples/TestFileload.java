@@ -112,7 +112,7 @@ public class TestFileload implements Serializable {
 		Query query = new Query(name);
 		GeoLocation geo = new GeoLocation(43.59312328910715, 3.779662996530533);
 		QueryResult result;
-		query.setGeoCode(geo, 100, Query.KILOMETERS);
+		query.setGeoCode(geo, 10, Query.KILOMETERS);
 			
 			result = twitter.search(query);
 		
@@ -121,7 +121,7 @@ public class TestFileload implements Serializable {
 				//System.out.println("@" + status.getUser().getScreenName() + ":" + status.getText());
 				System.out.println(status.getText() + sautLigne);
 				fstream.write(status.getText() + sautLigne);
-				fstream.write("TTTTTTTTTTT" +status.getGeoLocation() + sautLigne);
+				fstream.write("Geo du tweet" +status.getGeoLocation() + sautLigne);
            
             
 			}
