@@ -1,0 +1,4 @@
+insuffler;transmettre;infuser;
+injecter;communiquer;
+immuniser;inspirer;introduire;
+instiller;piquer;transfuser;

@@ -61,6 +61,8 @@ public class Stream {
                 List<Status> statuses;
 				try {
 					statuses = twitter.getUserTimeline(user.getScreenName(), new Paging(1, 10));
+					
+					System.out.println("statusees SIZE");
 					System.out.println("\t"+statuses.size()+" statuses for user "+user.getScreenName()+".");
 					
 					for (Status timelineStatus : statuses) {
@@ -98,6 +100,7 @@ public class Stream {
                 ex.printStackTrace();
             }
         };
+        
         twitterStream.addListener(listener);
         
         /////////////////////////////////////
@@ -122,12 +125,12 @@ public class Stream {
         
         // be careful with order of coordinates: (longitude, latitude)
         double[][] geolocations = { {lon1_fr, lat1_fr}, {lon2_fr, lat2_fr} };
-        q.locations(geolocations);
+        //q.locations(geolocations);
         
         // by keywords
-        String[] keywords = { "dieudonné" };
+        String[] keywords = { "h1n1" };
         // the keyword query is disabled for now
-//        q.track(keywords);
+        q.track(keywords);
         
         // Listening on stream
         twitterStream.filter(q);
@@ -139,7 +142,7 @@ public class Stream {
 	
 	public static void main(String[] args) {
 		
-//		public_stream();
+		//public_stream();
 		public_stream_with_query();
 		
 	}
