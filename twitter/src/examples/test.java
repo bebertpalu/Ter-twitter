@@ -32,7 +32,7 @@ import com.sun.org.glassfish.gmbal.Description;
 
 public class TestFileload implements Serializable {
 
-	private final String liste = "/home/nordine/workspace/java/TER/twitter/noms-medicaments.txt";
+	private final String liste = "/home/nordine/workspace/java/TER/twitter/liste.txt";
 	private final String tweet = "/home/nordine/workspace/java/TER/twitter/";
 	private static boolean areFilesLoaded = false; 	
 	GeoLocation sudest = new GeoLocation(45.29962080944616, 4.790771305561066);
@@ -42,6 +42,8 @@ public class TestFileload implements Serializable {
 	String sautLigne = System.getProperty("line.separator");
 	Twitter twitter = TwitterFactory.getSingleton();
 	String[] arr ;
+	
+	
 	
 	
 	/*
@@ -87,13 +89,36 @@ public class TestFileload implements Serializable {
 	{
 		
 		try{
-			for(int i=0; i<=arr.length; i++)
+			for(int j=0; j<4; j++)
+			{
+				if(j==0)
 				{
-				
-					System.out.println(" le MOTS " + arr[i]);
-					getTweet(arr[i]);
+					String loc = "45.29962080944616, 4.790771305561066";
+					System.out.println(loc);
+					getTweetLoc(loc, j);
+				}else if(j==1)
+					{
+						String loc = "44.80288598267254, 1.0993650555610657";
+						System.out.println(loc);
+						getTweetLoc(loc, j);
+					}
+				else if(j==2)
+				{
+					String loc = "48.62709981647218, 4.395263493061066";
+					System.out.println(loc);
+					getTweetLoc(loc, j);
+				}
+				else
+				{
+					String loc = "48.10156216940599, -0.4387208819389343";
+					System.out.println(loc);
+					j = 3;
+					getTweetLoc(loc, j);
+					
 				}
 			
+				
+			}
 		
 			
 			
@@ -103,41 +128,79 @@ public class TestFileload implements Serializable {
 			}
 	}
 	
+	void getTweetLoc(String local, int geo)
+	{
+		try {
+		BufferedWriter fstream = new BufferedWriter(new FileWriter("tw.txt", true));
+		fstream.write(local + sautLigne);
+		for(int i=0; i<= arr.length; i++)
+		{
+		
+			System.out.println(" le MOTS " + arr[i]);
+			fstream.write(arr[i] + sautLigne);
+			getTweet(arr[i], geo, fstream);
+		} 
+		
+		
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 	/*
 	 * GetTweet Mot clé en paramatre en entre 
 	 */
-	public void getTweet (String name) throws IOException
+	public void getTweet (String name, int localisation, BufferedWriter fc) throws IOException
 	{
 		try {
-		BufferedWriter fstream = new BufferedWriter(new FileWriter("sudouest.txt", true));
+		//BufferedWriter fstream = new BufferedWriter(new FileWriter("tw.txt", true));
 		//fstream.write(tweet+"\n");
 //		FileWriter fstream = new FileWriter("tweetListestream.txt");
 //	    BufferedWriter out = new BufferedWriter(fstream);
 		Query query = new Query(name);
+		
 		QueryResult result;
-		query.setGeoCode(sudouest, 400, Query.KILOMETERS);
-		result = twitter.search(query);
-		//fstream.write(name + sautLigne);
 		
-		
-		for (Status status : result.getTweets()) {
+			if(localisation==0)
+			{
+				query.setGeoCode(sudest, 400, Query.KILOMETERS);
+				
+			}
+			else if(localisation==1)
+			{
+				query.setGeoCode(sudouest, 400, Query.KILOMETERS);
+				
+			}
+			else if(localisation==2)
+			{
+				query.setGeoCode(nordest, 400, Query.KILOMETERS);
+				
+			}
+			else if(localisation==3)
+				{
+				query.setGeoCode(nordouest, 400, Query.KILOMETERS);
+				
+				}
+			result = twitter.search(query);
+			for (Status status : result.getTweets()) {
 				
 				System.out.println(status.getText() + sautLigne);
-				fstream.write(status.getText() + sautLigne);
-				
+				fc.write(status.getText() + sautLigne);
 				//fstream.write("Geo du tweet" +status.getGeoLocation() + sautLigne);
            
             
 			}
 		
 		
-			fstream.close();
+			
         
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		fc.close();
 		
 	}
 	
@@ -150,6 +213,7 @@ public class TestFileload implements Serializable {
     	
     	TestFileload objet = new TestFileload();
     	objet.load();	
+    	
     
     }
 	
